@@ -3,6 +3,8 @@
 ## About <a name = "about"></a>
 
 A simple http web server written in c
+which supports apache-like folders as well as
+static file support.
 
 ### Prerequisites
 
