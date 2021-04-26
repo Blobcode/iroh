@@ -24,3 +24,6 @@ and then
 ```
 ./iroh <port> <directory>
 ```
+<port> should be the port you want the server to start on
+and <directory> should be a path to the folder with your static content that you
+want to server
