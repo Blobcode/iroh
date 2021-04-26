@@ -6,8 +6,8 @@ A simple http web server written in c
 
 ### Prerequisites
 
-*make
-*a linux / unix system or wsl
+* make
+* a linux / unix system or wsl
 
 ## Usage <a name = "usage"></a>
 
