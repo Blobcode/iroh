@@ -88,11 +88,14 @@ int main(int argc, char **argv)
   /* check command line args */
   if (argc != 3)
   {
-    fprintf(stderr, "usage: %s <port>\n", argv[0]);
+    fprintf(stderr, "usage: %s <port> <directory>\n", argv[0]);
     exit(1);
   }
+
   portno = atoi(argv[1]);
   dir = argv[2];
+
+  fprintf(stderr, "server up at http://127.0.0.1:%d \nserving directory %s\n\n", portno, dir);
   /* open socket descriptor */
   parentfd = socket(AF_INET, SOCK_STREAM, 0);
   if (parentfd < 0)
