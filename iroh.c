@@ -58,16 +58,17 @@ int main(int argc, char **argv)
 {
 
   /* variables for connection management */
-  int parentfd;                  /* parent socket */
-  int childfd;                   /* child socket */
-  int portno;                    /* port to listen on */
-  char *dir;                     /* the directory to use */
-  int clientlen;                 /* byte size of client's address */
-  struct hostent *hostp;         /* client host info */
-  char *hostaddrp;               /* dotted decimal host addr string */
-  int optval;                    /* flag value for setsockopt */
-  struct sockaddr_in serveraddr; /* server's addr */
-  struct sockaddr_in clientaddr; /* client addr */
+  int parentfd;                         /* parent socket */
+  int childfd;                          /* child socket */
+  int portno;                           /* port to listen on */
+  char *getcwd(char *buf, size_t size); /* current working dir */
+  char *dir;                            /* the directory to use */
+  int clientlen;                        /* byte size of client's address */
+  struct hostent *hostp;                /* client host info */
+  char *hostaddrp;                      /* dotted decimal host addr string */
+  int optval;                           /* flag value for setsockopt */
+  struct sockaddr_in serveraddr;        /* server's addr */
+  struct sockaddr_in clientaddr;        /* client addr */
 
   /* variables for connection I/O */
   FILE *stream;           /* stream version of childfd */
@@ -86,16 +87,34 @@ int main(int argc, char **argv)
   int wait_status;        /* status from wait */
 
   /* check command line args */
-  if (argc != 3)
+  if (argc < 2)
   {
     fprintf(stderr, "usage: %s <port> <directory>\n", argv[0]);
     exit(1);
   }
 
+  /* set port number  */
   portno = atoi(argv[1]);
-  dir = argv[2];
 
-  fprintf(stderr, "server up at http://127.0.0.1:%d \nserving directory %s\n\n", portno, dir);
+  /* set serving directory  */
+  if (argv[2] == NULL)
+  {
+    char cwd[99];
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+    {
+      dir = cwd;
+    }
+    else
+    {
+      error("getcwd() error");
+    }
+  }
+  else
+  {
+    dir = argv[2];
+  }
+
+  fprintf(stderr, "server running at http://127.0.0.1:%d \nserving directory %s\n\n", portno, dir);
   /* open socket descriptor */
   parentfd = socket(AF_INET, SOCK_STREAM, 0);
   if (parentfd < 0)
@@ -147,7 +166,8 @@ int main(int argc, char **argv)
 
     /* get the HTTP request line */
     fgets(buf, BUFSIZE, stream);
-    printf("%s", buf);
+    fprintf(stderr, "IP: %s\n", inet_ntoa(clientaddr.sin_addr));
+    fprintf(stderr, "%s", buf);
     sscanf(buf, "%s %s %s\n", method, uri, version);
 
     /* only supports the GET method */
@@ -162,11 +182,11 @@ int main(int argc, char **argv)
 
     /* read (and ignore) the HTTP headers */
     fgets(buf, BUFSIZE, stream);
-    printf("%s", buf);
+    fprintf(stderr, "%s", buf);
     while (strcmp(buf, "\r\n"))
     {
       fgets(buf, BUFSIZE, stream);
-      printf("%s", buf);
+      fprintf(stderr, "%s", buf);
     }
 
     /* parse the uri [crufty] */
