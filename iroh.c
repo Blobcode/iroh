@@ -50,7 +50,7 @@ void cerror(FILE *stream, char *cause, char *errno,
                   "ffffff"
                   ">\n");
   fprintf(stream, "%s: %s\n", errno, shortmsg);
-  fprintf(stream, "<p>%s: %s<br><br><em>&quot; %s &quot;</em>\n", longmsg, cause, quote);
+  fprintf(stream, "<p>%s: %s<br><br><em>&quot;%s&quot;</em>\n", longmsg, cause, quote);
   fprintf(stream, "<hr>iroh web server\n");
 }
 
