@@ -89,7 +89,7 @@ int main(int argc, char **argv)
   /* check command line args */
   if (argc < 2)
   {
-    fprintf(stderr, "usage: %s <port> <directory>\n", argv[0]);
+    fprintf(stderr, "\niroh web server\n\nusage: %s <port> <directory>\n\nyou can also do %s <port> to serve the current working directory\n\n", argv[0], argv[0]);
     exit(1);
   }
 
