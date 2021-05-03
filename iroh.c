@@ -1,9 +1,11 @@
 /* 
  * iroh.c - a minimal HTTP server that serves static and
  *          dynamic content with GET with apache-like
- *          support for directories
+ *          support for directories made for development and
+ *          demonstration.
  *          
- *          Based off of tiny.c by Dave O'Hallaron
+ *          built by blobcode | github.com/blobcode   
+ *          based off of tiny.c by Dave O'Hallaron
  *
  *          usage: iroh <port> <directory>
  */
