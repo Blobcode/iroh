@@ -40,15 +40,15 @@ void error(char *msg)
  * cerror - returns an error message to the client
  */
 void cerror(FILE *stream, char *cause, char *errno,
-            char *shortmsg, char *longmsg, char *quote)
+    char *shortmsg, char *longmsg, char *quote)
 {
   fprintf(stream, "HTTP/1.1 %s %s\n", errno, shortmsg);
   fprintf(stream, "Content-type: text/html\n");
   fprintf(stream, "\n");
   fprintf(stream, "<html><title>error</title>");
   fprintf(stream, "<body bgcolor="
-                  "ffffff"
-                  ">\n");
+      "ffffff"
+      ">\n");
   fprintf(stream, "%s: %s\n", errno, shortmsg);
   fprintf(stream, "<p>%s: %s<br><br><em>&quot;%s&quot;</em>\n", longmsg, cause, quote);
   fprintf(stream, "<hr>iroh web server\n");
@@ -122,7 +122,7 @@ int main(int argc, char **argv)
   /* allows us to restart server immediately */
   optval = 1;
   setsockopt(parentfd, SOL_SOCKET, SO_REUSEADDR,
-             (const void *)&optval, sizeof(int));
+      (const void *)&optval, sizeof(int));
 
   /* bind port to socket */
   bzero((char *)&serveraddr, sizeof(serveraddr));
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
   serveraddr.sin_addr.s_addr = htonl(INADDR_ANY);
   serveraddr.sin_port = htons((unsigned short)portno);
   if (bind(parentfd, (struct sockaddr *)&serveraddr,
-           sizeof(serveraddr)) < 0)
+        sizeof(serveraddr)) < 0)
     error("ERROR on binding");
 
   /* get us ready to accept connection requests */
@@ -169,7 +169,7 @@ int main(int argc, char **argv)
     if (strcasecmp(method, "GET"))
     {
       cerror(stream, method, "501", "not implemented",
-             "iroh does not implement this method", "");
+          "iroh does not implement this method", "");
       fclose(stream);
       close(childfd);
       continue;
@@ -215,7 +215,7 @@ int main(int argc, char **argv)
     if (stat(filename, &sbuf) < 0)
     {
       cerror(stream, filename, "404", "not found",
-             "iroh couldn't find this file", "Failure is only the opportunity to begin again. Only this time, more wisely.");
+          "iroh couldn't find this file", "Failure is only the opportunity to begin again. Only this time, more wisely.");
       fclose(stream);
       close(childfd);
       continue;
@@ -255,7 +255,7 @@ int main(int argc, char **argv)
       if (!(S_IFREG & sbuf.st_mode) || !(S_IXUSR & sbuf.st_mode))
       {
         cerror(stream, filename, "403", "forbidden",
-               "you are not allow to access this item", "");
+            "you are not allow to access this item", "");
         fclose(stream);
         close(childfd);
         continue;
