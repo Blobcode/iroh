@@ -64,7 +64,6 @@ int main(int argc, char **argv)
   char *getcwd(char *buf, size_t size); /* current working dir */
   char *dir;                            /* the directory to use */
   int clientlen;                        /* byte size of client's address */
-  struct hostent *hostp;                /* client host info */
   char *hostaddrp;                      /* dotted decimal host addr string */
   int optval;                           /* flag value for setsockopt */
   struct sockaddr_in serveraddr;        /* server's addr */
