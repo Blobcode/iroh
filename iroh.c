@@ -152,10 +152,6 @@ int main(int argc, char **argv)
       error("ERROR on accept");
 
     /* determine who sent the message */
-    hostp = gethostbyaddr((const char *)&clientaddr.sin_addr.s_addr,
-                          sizeof(clientaddr.sin_addr.s_addr), AF_INET);
-    if (hostp == NULL)
-      error("ERROR on gethostbyaddr");
     hostaddrp = inet_ntoa(clientaddr.sin_addr);
     if (hostaddrp == NULL)
       error("ERROR on inet_ntoa\n");
